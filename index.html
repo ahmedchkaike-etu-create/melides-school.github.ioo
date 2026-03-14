@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="icon" type="image/png" href="image/logo-highschool1.png">
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Melides International School</title>
+    
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700;800&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+    
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#1152d4", 
+                        "navy-custom": "#0B0F3A", 
+                        "gold-custom": "#D4AF37", 
+                        "accent": "#D4AF37",
+                        "background-light": "#f6f6f8",
+                        "background-dark": "#101622",
+                    },
+                    fontFamily: {
+                        "display": ["Lexend", "sans-serif"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+    <style>
+        body { font-family: 'Lexend', sans-serif; min-height: max(884px, 100dvh); }
+        .glass-nav { background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px); }
+        .dark .glass-nav { background: rgba(11, 15, 58, 0.95); }
+        .hero-overlay { background: linear-gradient(to right, rgba(11, 15, 58, 0.8), rgba(11, 15, 58, 0.3)); }
+    </style>
+
+    <!-- React and ReactDOM -->
+    <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+    
+    <!-- React Router -->
+    <script src="https://unpkg.com/history@5/umd/history.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-router@6.3.0/umd/react-router.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-router-dom@6.3.0/umd/react-router-dom.development.js" crossorigin></script>
+    
+    <!-- Babel -->
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 antialiased">
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { useState, useEffect } = React;
+        const { createRoot } = ReactDOM;
+        const { HashRouter, Routes, Route, Link, useLocation } = ReactRouterDOM;
+
+        // --- Components ---
+
+        const Navbar = () => {
+    const location = useLocation();
+
+    return (
+        <nav className="sticky top-0 z-50 glass-nav border-b border-slate-200 dark:border-slate-800">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div className="flex justify-between h-20">
+
+                    <Link to="/" className="flex items-center gap-3">
+                        <img src="image/logo-highschool1.png" className="h-12 w-auto"/>
+
+                        <span className="text-navy-custom dark:text-white font-bold text-xl tracking-tight hidden md:block">
+                            Melides International School
+                        </span>
+                    </Link>
+
+                    <div className="hidden md:flex items-center space-x-8">
+                        <Link to="/" className={`font-medium ${location.pathname === '/' ? 'text-primary border-b-2 border-primary' : 'text-slate-600 dark:text-slate-300 hover:text-primary'}`}>Home</Link>
+
+                        <Link to="/about" className={`font-medium ${location.pathname === '/about' ? 'text-primary border-b-2 border-primary' : 'text-slate-600 dark:text-slate-300 hover:text-primary'}`}>About</Link>
+
+                        <Link to="/admissions" className={`font-medium ${location.pathname === '/admissions' ? 'text-primary border-b-2 border-primary' : 'text-slate-600 dark:text-slate-300 hover:text-primary'}`}>Admissions</Link>
+
+                        <Link to="/contact" className={`font-medium ${location.pathname === '/contact' ? 'text-primary border-b-2 border-primary' : 'text-slate-600 dark:text-slate-300 hover:text-primary'}`}>Contact</Link>
+
+                        <Link to="/admissions" className="bg-primary hover:bg-primary/90 text-white px-6 py-2.5 rounded-lg font-bold transition-all shadow-lg hover:shadow-primary/20">
+                            Apply Now
+                        </Link>
+                    </div>
+
+                </div>
+            </div>
+        </nav>
+    );
+};
+
+
+
+        const MobileBottomNav = () => {
+            const location = useLocation();
+            return (
+                <div className="md:hidden fixed bottom-0 w-full bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800 flex justify-around p-3 z-50">
+                    <Link to="/" className={`flex flex-col items-center ${location.pathname === '/' ? 'text-primary' : 'text-slate-400'}`}>
+                        <span className="material-symbols-outlined">home</span>
+                        <span className="text-[10px] font-bold">Home</span>
+                    </Link>
+                    <Link to="/about" className={`flex flex-col items-center ${location.pathname === '/about' ? 'text-primary' : 'text-slate-400'}`}>
+                        <span className="material-symbols-outlined">info</span>
+                        <span className="text-[10px] font-bold">About</span>
+                    </Link>
+                    <Link to="/admissions" className={`flex flex-col items-center ${location.pathname === '/admissions' ? 'text-primary' : 'text-slate-400'}`}>
+                        <span className="material-symbols-outlined">description</span>
+                        <span className="text-[10px] font-bold">Apply</span>
+                    </Link>
+                    <Link to="/contact" className={`flex flex-col items-center ${location.pathname === '/contact' ? 'text-primary' : 'text-slate-400'}`}>
+                        <span className="material-symbols-outlined">mail</span>
+                        <span className="text-[10px] font-bold">Contact</span>
+                    </Link>
+                </div>
+            );
+        };
+
+        const Footer = () => (
+            <footer className="bg-navy-custom text-white py-16">
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
+                        <div className="space-y-6">
+                            <div className="flex items-center gap-3">
+                                <span className="material-symbols-outlined text-gold-custom text-3xl">school</span>
+                                <span className="text-xl font-bold tracking-tight">Melides</span>
+                            </div>
+                            <p className="text-slate-400 text-sm leading-relaxed">
+                                Nurturing global citizens since 1998. Providing a holistic education that empowers every student to reach their full potential.
+                            </p>
+                        </div>
+                        <div>
+                            <h6 className="text-lg font-bold mb-6 text-gold-custom">Quick Links</h6>
+                            <ul className="space-y-4 text-slate-400 text-sm">
+                                <li><Link to="/about" className="hover:text-white transition-colors">About Us</Link></li>
+                                <li><Link to="/admissions" className="hover:text-white transition-colors">Admissions Policy</Link></li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h6 className="text-lg font-bold mb-6 text-gold-custom">Admissions</h6>
+                            <ul className="space-y-4 text-slate-400 text-sm">
+                                <li><Link to="/admissions" className="hover:text-white transition-colors">How to Apply</Link></li>
+                                <li><Link to="/contact" className="hover:text-white transition-colors">Book a Tour</Link></li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h6 className="text-lg font-bold mb-6 text-gold-custom">Contact</h6>
+                            <ul className="space-y-4 text-slate-400 text-sm">
+                                <li className="flex items-start gap-3">
+                                    <span className="material-symbols-outlined text-gold-custom">location_on</span>
+
+<a 
+  href="https://www.google.com/maps?q=38.1470538,-8.7288379"
+  target="_blank"
+  rel="noopener noreferrer"
+  className="hover:text-gold-custom"
+>
+  Rua da Escola, Melides<br/>Portugal
+</a> 
+                                </li>
+                                <li className="flex items-center gap-3">
+                                    <span className="material-symbols-outlined text-gold-custom">call</span>
+                                    <span>+351 922 015 218</span>
+                                </li>
+                                <li className="flex items-center gap-3">
+                                    <span className="material-symbols-outlined text-gold-custom">email</span>
+                                    <a
+href="mailto:melidesinternationalschool@gmail.com"
+className="break-words max-w-[200px] hover:text-white transition"
+>
+melidesinternationalschool@gmail.com
+</a>
+                                    </li>
+                                <li className="flex items-center gap-3">
+                                <svg xmlns="http://www.w3.org/2000/svg" 
+     className="w-5 h-5 text-gold-custom"
+     fill="currentColor" 
+     viewBox="0 0 24 24">
+
+<path d="M7.75 2C4.57 2 2 4.57 2 7.75v8.5C2 19.43 4.57 22 7.75 22h8.5C19.43 22 22 19.43 22 16.25v-8.5C22 4.57 19.43 2 16.25 2h-8.5zm0 2h8.5C18.32 4 20 5.68 20 7.75v8.5c0 2.07-1.68 3.75-3.75 3.75h-8.5C5.68 20 4 18.32 4 16.25v-8.5C4 5.68 5.68 4 7.75 4zm4.25 3.5A5.5 5.5 0 1 0 17.5 13 5.51 5.51 0 0 0 12 7.5zm0 2A3.5 3.5 0 1 1 8.5 13 3.5 3.5 0 0 1 12 9.5zm5.25-.88a1.13 1.13 0 1 0 1.13 1.13 1.13 1.13 0 0 0-1.13-1.13z"/>
+
+</svg>
+
+                                   <a 
+                                    href="https://instagram.com/melides.school"
+                                    target="_blank"
+                                     rel="noopener noreferrer"
+                                     className="hover:text-white transition"
+>
+
+                                      @melidesschool
+
+                                    </a>
+
+                                  </li>
+                            
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </footer>
+        );
+
+        // --- Pages ---
+
+        const HomePage = () => {
+            return (
+                <div>
+                    <section className="relative h-[85vh] flex items-center overflow-hidden">
+                        <div className="absolute inset-0 z-0">
+                            <img alt="Modern international school campus architecture" className="w-full h-full object-cover" src="image/Lo.jpeg"/>
+                            <div className="absolute inset-0 hero-overlay"></div>
+                        </div>
+                        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-white">
+                            <div className="max-w-2xl space-y-6">
+                                <h1 className="text-5xl md:text-7xl font-extrabold leading-tight">
+                                    Welcome to <span className="text-gold-custom">Melides</span> International School
+                                </h1>
+                                <p className="text-xl md:text-2xl text-slate-200 font-light max-w-xl">
+                                    Preparing students for a global future through academic excellence and cultural diversity.
+                                </p>
+                                <div className="flex flex-wrap gap-4 pt-4">
+                                    <Link to="/about" className="bg-gold-custom hover:bg-yellow-600 text-navy-custom px-8 py-4 rounded-lg font-bold text-lg transition-all transform hover:-translate-y-1">
+                                        Discover More
+                                    </Link>
+                                    <Link to="/admissions" className="bg-white/10 hover:bg-white/20 backdrop-blur-md border border-white/30 text-white px-8 py-4 rounded-lg font-bold text-lg transition-all transform hover:-translate-y-1">
+                                        Apply Now
+                                    </Link>
+                                </div>
+                                
+                            </div>
+                        </div>
+                    </section>
+
+                    <section className="relative -mt-16 z-20 px-4 max-w-7xl mx-auto mb-24">
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                            <div className="bg-white dark:bg-slate-900 p-8 rounded-xl shadow-xl border-b-4 border-gold-custom flex flex-col items-center text-center">
+                                <span className="text-primary text-4xl font-black mb-1">300+</span>
+                                <span className="text-slate-500 font-medium uppercase tracking-widest text-xs">Students</span>
+                            </div>
+                            <div className="bg-white dark:bg-slate-900 p-8 rounded-xl shadow-xl border-b-4 border-gold-custom flex flex-col items-center text-center">
+                                <span className="text-primary text-4xl font-black mb-1">85%</span>
+                                <span className="text-slate-500 font-medium uppercase tracking-widest text-xs">University Acceptance</span>
+                            </div>
+                            <div className="bg-white dark:bg-slate-900 p-8 rounded-xl shadow-xl border-b-4 border-gold-custom flex flex-col items-center text-center">
+                                <span className="text-primary text-4xl font-black mb-1">1:8</span>
+                                <span className="text-slate-500 font-medium uppercase tracking-widest text-xs">Teacher Ratio</span>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            );
+        };
+
+        const AboutPage = () => {
+            return (
+                <div>
+                    <section className="relative h-[60vh] flex items-center justify-center overflow-hidden">
+                        <div className="absolute inset-0 z-0">
+                            <div className="absolute inset-0 bg-navy-custom/60 z-10"></div>
+                            <img 
+  alt="Campus" 
+  className="w-full h-full object-cover" 
+  src="image/Lo.jpeg"
+/>
+                        </div>
+                        <div className="relative z-20 text-center px-4 max-w-4xl">
+                            <span className="text-gold-custom font-bold tracking-widest uppercase text-sm mb-4 block">Excellence in Global Education</span>
+                            <h2 className="text-4xl md:text-6xl font-bold text-white mb-6">Shaping Future Leaders</h2>
+                            <p className="text-lg md:text-xl text-white/90 font-light leading-relaxed">
+                                Melides International School is dedicated to providing world-class education and preparing students for global universities.
+                            </p>
+                        </div>
+                    </section>
+
+                    <section className="py-20 px-4 -mt-20 relative z-30 mb-12">
+                        <div className="max-w-7xl mx-auto grid md:grid-cols-2 gap-8">
+                            <div className="bg-white dark:bg-slate-800 p-10 rounded-xl shadow-xl border-t-4 border-gold-custom">
+                                <h3 className="text-2xl font-bold text-navy-custom dark:text-white mb-4">Our Mission</h3>
+                                <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
+                                    To empower students with a rigorous, holistic education that fosters critical thinking, cultural empathy, and a lifelong passion for learning in a diverse, globalized world.
+                                </p>
+                            </div>
+                            <div className="bg-white dark:bg-slate-800 p-10 rounded-xl shadow-xl border-t-4 border-primary">
+                                <h3 className="text-2xl font-bold text-navy-custom dark:text-white mb-4">Our Vision</h3>
+                                <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
+                                    To be a premier international institution recognized for academic excellence, innovative teaching, and nurturing responsible global citizens who contribute positively to society.
+                                </p>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            );
+        };
+
+        const AdmissionsPage = () => {
+            return (
+                <div>
+                    <section className="py-24 bg-background-light dark:bg-background-dark">
+                        <div className="max-w-7xl mx-auto px-4">
+                            <div className="text-center mb-20">
+                                <span className="text-gold-custom font-bold tracking-[0.3em] uppercase text-sm mb-4 block">The Journey</span>
+                                <h3 className="text-navy-custom dark:text-white text-4xl md:text-5xl font-bold">Admissions Process</h3>
+                            </div>
+                            <div className="grid md:grid-cols-3 gap-12 relative">
+                                <div className="bg-white dark:bg-slate-800 p-8 rounded-2xl shadow-sm border border-slate-100 dark:border-slate-700 text-center">
+                                    <div className="w-16 h-16 bg-primary rounded-full flex items-center justify-center mx-auto mb-6">
+                                        <span className="material-symbols-outlined text-white text-2xl">edit_note</span>
+                                    </div>
+                                    <h4 className="text-xl font-bold mb-4">1. Application</h4>
+                                    <p className="text-slate-600 dark:text-slate-400">Complete our online application form and submit previous academic records.</p>
+                                </div>
+                                <div className="bg-white dark:bg-slate-800 p-8 rounded-2xl shadow-sm border border-slate-100 dark:border-slate-700 text-center">
+                                    <div className="w-16 h-16 bg-gold-custom rounded-full flex items-center justify-center mx-auto mb-6">
+                                        <span className="material-symbols-outlined text-white text-2xl">groups</span>
+                                    </div>
+                                    <h4 className="text-xl font-bold mb-4">2. Interview</h4>
+                                    <p className="text-slate-600 dark:text-slate-400">Shortlisted candidates are invited for a personal interview and assessments.</p>
+                                </div>
+                                <div className="bg-white dark:bg-slate-800 p-8 rounded-2xl shadow-sm border border-slate-100 dark:border-slate-700 text-center">
+                                    <div className="w-16 h-16 bg-primary rounded-full flex items-center justify-center mx-auto mb-6">
+                                        <span className="material-symbols-outlined text-white text-2xl">verified</span>
+                                    </div>
+                                    <h4 className="text-xl font-bold mb-4">3. Acceptance</h4>
+                                    <p className="text-slate-600 dark:text-slate-400">Successful applicants receive a formal offer to secure their placement.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            );
+        };
+
+        const ContactPage = () => {
+            return (
+                <div>
+                     <section className="relative h-[350px] w-full overflow-hidden bg-navy-custom">
+                        <div className="absolute inset-0 bg-gradient-to-t from-navy-custom via-navy-custom/60 to-transparent"></div>
+                        <div className="container relative mx-auto h-full flex flex-col justify-center px-4 pt-12">
+                            <span className="text-gold-custom font-semibold tracking-widest uppercase text-sm mb-3 block">Connect with excellence</span>
+                            <h2 className="text-white text-4xl md:text-5xl font-bold leading-tight max-w-2xl">Contact Our Team</h2>
+                        </div>
+                    </section>
+
+                    <main className="container mx-auto px-4 -mt-16 relative z-10 pb-20">
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+                            <div className="bg-white dark:bg-slate-900 p-8 rounded-xl shadow-xl border-t-4 border-gold-custom">
+                                <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-6 text-primary">
+                                    <span className="material-symbols-outlined">location_on</span>
+                                </div>
+                                <h3 className="text-xl font-bold mb-2">Visit Us</h3>
+                                <p className="text-slate-600 dark:text-slate-400 mb-4">Rua da Escola, Melides<br/>7570-602 Portugal</p>
+                            </div>
+                            <div className="bg-white dark:bg-slate-900 p-8 rounded-xl shadow-xl border-t-4 border-gold-custom">
+                                <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-6 text-primary">
+                                    <span className="material-symbols-outlined">mail</span>
+                                </div>
+                                <h3 className="text-xl font-bold mb-2">Email Us</h3>
+                                <p className="text-slate-600 dark:text-slate-400 mb-1">melidesinternationalschool@gmail.com</p>
+                            </div>
+                            <div className="bg-white dark:bg-slate-900 p-8 rounded-xl shadow-xl border-t-4 border-gold-custom">
+                                <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-6 text-primary">
+                                    <span className="material-symbols-outlined">phone</span>
+                                </div>
+                                <h3 className="text-xl font-bold mb-2">Call Us</h3>
+                                <p className="text-slate-600 dark:text-slate-400 mb-1">+351 922 015 218</p>
+                            </div>
+                        </div>
+
+                        <div className="bg-white dark:bg-slate-900 p-8 md:p-12 rounded-xl shadow-sm border border-slate-200 dark:border-slate-800">
+                            <h3 className="text-2xl font-bold mb-6">Send us a Message</h3>
+                            <form className="space-y-6" onSubmit={(e) => e.preventDefault()}>
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                    <div className="flex flex-col gap-2">
+                                        <label className="text-sm font-medium">First Name</label>
+                                        <input className="rounded-lg border-slate-200 dark:border-slate-700 dark:bg-slate-800" type="text"/>
+                                    </div>
+                                    <div className="flex flex-col gap-2">
+                                        <label className="text-sm font-medium">Last Name</label>
+                                        <input className="rounded-lg border-slate-200 dark:border-slate-700 dark:bg-slate-800" type="text"/>
+                                    </div>
+                                </div>
+                                <div className="flex flex-col gap-2">
+                                    <label className="text-sm font-medium">Message</label>
+                                    <textarea className="rounded-lg border-slate-200 dark:border-slate-700 dark:bg-slate-800" rows="4"></textarea>
+                                </div>
+                                <button className="w-full bg-navy-custom hover:bg-primary text-white font-bold py-4 px-6 rounded-lg shadow-lg" type="submit">
+                                    Submit Inquiry
+                                </button>
+                            </form>
+                        </div>
+                    </main>
+                </div>
+            );
+        };
+
+        const App = () => {
+            return (
+                <HashRouter>
+                    <div className="flex flex-col min-h-screen pb-16 md:pb-0">
+                        <Navbar />
+                        <div className="flex-grow">
+                            <Routes>
+                                <Route path="/" element={<HomePage />} />
+                                <Route path="/about" element={<AboutPage />} />
+                                <Route path="/admissions" element={<AdmissionsPage />} />
+                                <Route path="/contact" element={<ContactPage />} />
+                            </Routes>
+                        </div>
+                        <Footer />
+                        <MobileBottomNav />
+                    </div>
+                </HashRouter>
+            );
+        };
+
+        const root = createRoot(document.getElementById('root'));
+        root.render(<App />);
+    </script>
+</body>
+</html> ha lcode dyal page lwla
